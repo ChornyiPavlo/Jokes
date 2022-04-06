@@ -1,0 +1,46 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Log in!{% endblock %}
+
+{% block body %}
+
+    {% if error %}
+        <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+    {% endif %}
+    <form action="{{ path('login') }}" method="post">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-10 ml-md-auto">
+                <div class="card bg-light mb-3 mt-5" style="width: 800px">
+                    <div class="card-body">
+                        <div class="card-header mb-3">Please sign in</div>
+                        <div class="form_group">
+                            <div class="col-md-12 mb-3">Email</div>
+                        <input type="email" value="" name="_username" id="email" class="form-control" autocomplete="email" required autofocus>
+                            <div class="form_group">
+                                <div class="col-md-12 mb-3 mt-3">Password</div>
+                        <input type="password" name="_password" id="password" class="form-control" autocomplete="current-password" required>
+                        <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
+
+                                <div class="form-group">
+                                    <div class="col-md-8 col-md-offset-4" style="margin-top:20px;">
+                                        <button type="submit" class="btn btn-primary">
+                                            <i class="fa fa-btn fa-user"></i> Sign in
+                                        </button>
+                                    </div>
+                                </div>
+
+    {#
+        Uncomment this section and add a remember_me option below your firewall to activate remember me functionality.
+        See https://symfony.com/doc/current/security/remember_me.html
+
+        <div class="checkbox mb-3">
+            <label>
+                <input type="checkbox" name="_remember_me"> Remember me
+            </label>
+        </div>
+    #}
+
+
+
+{% endblock %}
