@@ -11,7 +11,7 @@ use Symfony\Component\Routing\Annotation\Route;
 use Doctrine\Persistence\ManagerRegistry;
 
 
-class UserController extends AbstractController
+class EditUserController extends AbstractController
 {
     private UserPasswordHasherInterface $passwordHasher;
     public function __construct(UserPasswordHasherInterface $passwordHasher)
