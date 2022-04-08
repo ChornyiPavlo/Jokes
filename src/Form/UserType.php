@@ -1,5 +1,5 @@
 <?php
-
+// изменен в ветке
 namespace App\Form;
 
 use App\Entity\User;
@@ -18,7 +18,6 @@ class UserType extends AbstractType
             ->add('name',TextType::class)
             ->add('email',EmailType::class)
             ->add('password',PasswordType::class)
-            //  ->add('roles')
         ;
     }
 
