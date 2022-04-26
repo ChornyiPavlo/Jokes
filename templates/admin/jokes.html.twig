@@ -1,0 +1,35 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello Admin!{% endblock %}
+
+{% block body %}
+<style>
+    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
+    table{ width:100% }
+</style>
+    <a class="btn btn-secondary " href="{{ path('app_admin') }}">Back</a>
+    <table class="table-light">
+        <thead>
+        <tr class="table-primary text-center">
+            <th scope="col">Id</th>
+            <th scope="col">Category</th>
+            <th scope="col">Joke</th>
+            <th scope="col">Edit</th>
+            <th scope="col">Delete</th>
+        </tr>
+        </thead>
+        <tbody>{% for key in loadJoke %}
+        <tr class="table-success text-center">
+            <th scope="row">{{key.id}}</th>
+            <td class="table-secondary">{% for name in loadCategory%}{% if key.category == name.id %} {{name.name}} {%endif%} {% endfor %}</td>
+            <td class="table-secondary">{{key.joke}}</td>
+            <td class="table-secondary"><a class="btn btn-primary" href="{{ path('app_jokes_edit', {id: key.id}) }}" role="button">Edit</a></td>
+            <td class="table-secondary"><a class="btn btn-danger" onclick="return confirm('Do you want delete this?')"
+                                           href="{{ path('app_jokes_delete', {id: key.id}) }}"
+                                           role="button">Delete</a></td>
+            </tr>
+        </tbody>{% endfor %}
+    </table>
+
+
+{% endblock %}
