@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="">
 <head>
     <meta charset="UTF-8" />
     <title>{% block title %}Welcome!{% endblock %}</title>
@@ -11,9 +11,13 @@
 </head>
 <body>
 <nav class="navbar navbar-expand-lg navbar-light bg-light" style="height: 100px;">
-    <a class="nav-link" href="{{ path('app_page') }}">Black</a>
+    <a class="nav-link" href="{{ path('app_page') }}">Jokes site</a>
+
     <div class="collapse navbar-collapse" id="navbarSupportedContent"></div>
     <ul class="nav navbar-nav navbar-right">
+        {% if is_granted('ROLE_ADMIN') %}
+        <li><a class="nav-link" href="{{ path('app_admin') }}">Admin panel</a></li>
+        {% endif %}
         {% if  app.user  %}
             <li><a class="nav-link" href="{{ path('app_user_edit') }}">Edit profile</a></li>
             <li><a class="nav-link" href="{{ path('app_logout') }}">Logout</a></li>

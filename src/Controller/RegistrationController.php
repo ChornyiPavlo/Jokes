@@ -16,13 +16,22 @@ use Symfony\Component\Security\Http\Authenticator\FormLoginAuthenticator;
 class RegistrationController extends AbstractController
 {
     private UserPasswordHasherInterface $passwordHasher;
+    private ManagerRegistry $doctrine;
+    private UserAuthenticatorInterface $userAuthenticator;
+    private FormLoginAuthenticator $formLoginAuthenticator;
 
-    public function __construct(UserPasswordHasherInterface $passwordHasher)
+    public function __construct(UserPasswordHasherInterface $passwordHasher,
+                                ManagerRegistry $doctrine,
+                                UserAuthenticatorInterface $userAuthenticator,
+                                FormLoginAuthenticator $formLoginAuthenticator)
     {
         $this->passwordHasher = $passwordHasher;
+        $this->doctrine = $doctrine;
+        $this->userAuthenticator = $userAuthenticator;
+        $this->formLoginAuthenticator = $formLoginAuthenticator;
     }
     #[Route('/register', name: 'app_register')]
-    public function register(Request $request, ManagerRegistry $doctrine, UserAuthenticatorInterface $userAuthenticator, FormLoginAuthenticator $formLoginAuthenticator): Response
+    public function register(Request $request): Response
     {
         $user = new User();
         $form = $this->createForm(UserType::class, $user);
@@ -34,11 +43,11 @@ class RegistrationController extends AbstractController
             // Set their role
             $user->setRoles(['ROLE_USER']);
             // Save
-            $entityManager = $doctrine->getManager();
+            $entityManager = $this->doctrine->getManager();
             $entityManager->persist($user);
             $entityManager->flush();
 
-            $userAuthenticator->authenticateUser($user, $formLoginAuthenticator, $request);
+            $this->userAuthenticator->authenticateUser($user, $this->formLoginAuthenticator, $request);
 
             return $this->redirectToRoute('app_page');
         }

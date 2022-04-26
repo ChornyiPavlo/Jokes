@@ -14,21 +14,24 @@ use Doctrine\Persistence\ManagerRegistry;
 class EditUserController extends AbstractController
 {
     private UserPasswordHasherInterface $passwordHasher;
-    public function __construct(UserPasswordHasherInterface $passwordHasher)
+    private ManagerRegistry $doctrine;
+
+    public function __construct(UserPasswordHasherInterface $passwordHasher, ManagerRegistry $doctrine)
     {
         $this->passwordHasher = $passwordHasher;
+        $this->doctrine = $doctrine;
     }
 
     #[Route('/edit', name: 'app_user_edit', methods: ['GET', 'POST'])]
 
-    public function edit(Request $request, ManagerRegistry $doctrine): Response
+    public function edit(Request $request): Response
     {
         $user = $this->getUser();
         $form = $this->createForm(UserType::class, $user);
         $form->handleRequest($request);
             if ($form->isSubmitted() && $form->isValid()) {
                 $user->setPassword($this->passwordHasher->hashPassword($user, $user->getPassword()));
-                $entityManager = $doctrine->getManager();
+                $entityManager = $this->doctrine->getManager();
                 $entityManager->persist($user);
                 $entityManager->flush();
 
