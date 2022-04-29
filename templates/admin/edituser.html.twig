@@ -7,11 +7,10 @@
     .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
     table{ width:100% }
 </style>
-
+    {{ form_start(loadUser) }}
     <table class="table-light">
         <tbody>
         <tr class="table-info text-center">
-            {{ form_start(loadUser) }}
                 <td> {{ form_row(loadUser.name, {'attr': {'class': 'form-control'}}) }} </td>
                 <td> {{ form_row(loadUser.email, {'attr': {'class': 'form-control'}}) }} </td>
                 <td> {{ form_row(loadUser.password, {'attr': {'class': 'form-control'}}) }} </td>

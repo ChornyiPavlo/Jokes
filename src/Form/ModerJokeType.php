@@ -4,6 +4,7 @@ namespace App\Form;
 
 use App\Entity\Categories;
 use App\Entity\Joke;
+use App\Entity\JokeModeration;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
@@ -12,7 +13,7 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 
-class JokeType extends AbstractType
+class ModerJokeType extends AbstractType
 {
     private ManagerRegistry $doctrine;
 
@@ -39,8 +40,8 @@ class JokeType extends AbstractType
     public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([
-            'data_class' => Joke::class,
-
+            'data_class' => JokeModeration::class,
+            
         ]);
     }
 }

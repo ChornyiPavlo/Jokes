@@ -6,6 +6,7 @@ use App\Entity\Categories;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\ORM\OptimisticLockException;
 use Doctrine\ORM\ORMException;
+use Doctrine\ORM\QueryBuilder;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
@@ -19,6 +20,17 @@ class CategoriesRepository extends ServiceEntityRepository
     public function __construct(ManagerRegistry $registry)
     {
         parent::__construct($registry, Categories::class);
+    }
+
+    /**
+     * @param string|null $term
+     */
+    public function getWithSearchQueryBuilder(?string $term): QueryBuilder
+    {
+        $qb = $this->createQueryBuilder('c');
+        return $qb
+            ->orderBy('c.name', 'DESC')
+            ;
     }
 
     /**

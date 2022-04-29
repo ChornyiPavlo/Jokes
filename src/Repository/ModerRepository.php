@@ -3,6 +3,7 @@
 namespace App\Repository;
 
 use App\Entity\Joke;
+use App\Entity\JokeModeration;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\ORM\OptimisticLockException;
 use Doctrine\ORM\ORMException;
@@ -15,18 +16,18 @@ use Doctrine\Persistence\ManagerRegistry;
  * @method Joke[]    findAll()
  * @method Joke[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
-class JokeRepository extends ServiceEntityRepository
+class ModerRepository extends ServiceEntityRepository
 {
     public function __construct(ManagerRegistry $registry)
     {
-        parent::__construct($registry, Joke::class);
+        parent::__construct($registry, JokeModeration::class);
     }
 
     /**
      * @throws ORMException
      * @throws OptimisticLockException
      */
-    public function add(Joke $entity, bool $flush = true): void
+    public function add(JokeModeration $entity, bool $flush = true): void
     {
         $this->_em->persist($entity);
         if ($flush) {
@@ -38,7 +39,7 @@ class JokeRepository extends ServiceEntityRepository
      * @throws ORMException
      * @throws OptimisticLockException
      */
-    public function remove(Joke $entity, bool $flush = true): void
+    public function remove(JokeModeration $entity, bool $flush = true): void
     {
         $this->_em->remove($entity);
         if ($flush) {

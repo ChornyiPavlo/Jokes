@@ -22,8 +22,7 @@ class EditUserController extends AbstractController
         $this->doctrine = $doctrine;
     }
 
-    #[Route('/edit', name: 'app_user_edit', methods: ['GET', 'POST'])]
-
+    #[Route('/edit', name: 'app_user_edit')]
     public function edit(Request $request): Response
     {
         $user = $this->getUser();

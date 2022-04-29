@@ -2,10 +2,8 @@
 
 namespace App\Controller;
 
-use App\Entity\Categories;
-use App\Entity\Joke;
-use App\Form\CategoriesType;
-use App\Form\JokeType;
+use App\Entity\JokeModeration;
+use App\Form\ModerJokeType;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -14,16 +12,17 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class JokeController extends AbstractController
 {
-    #[Route('/add joke', name: 'app_joke', methods: ['GET', 'POST'])]
+    #[Route('/add joke', name: 'app_joke')]
     public function submit(Request $request, ManagerRegistry $doctrine): Response
     {
-        $joke = new Joke();
-        $form = $this->createForm(JokeType::class, $joke);
+        $joke = new JokeModeration();
+        $form = $this->createForm(ModerJokeType::class, $joke);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            //  отправить на модерацию админу?
-            // Save
+            $joke ->setUser($this->getUser()->getEmail());
+            $joke->setCreated(date_create('now'));
+
             $entityManager = $doctrine->getManager();
             $entityManager->persist($joke);
             $entityManager->flush();

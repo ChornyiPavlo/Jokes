@@ -21,20 +21,20 @@
                     <div class="form-group">
                         <div class="col-md-8 col-md-offset-4" style="margin-top:5px;">
                             <button type="submit" class="btn btn-primary">
-                                <i class="fa fa-btn fa-user"
-{#                                   href="{{ [path('app_read_cat', {id: category_id})]}}"#}
-                                ></i> Submit
+                                <i class="fa fa-btn fa-user"></i> Submit
                             </button>
                             <button type="button" class="btn btn-link">
-                                <a class="btn btn-outline-success" href="{{ path('app_read_all') }}" role="button">Read all jokes</a>
+                                <a class="btn btn-outline-success" href="{{ path('app_read_all') }}"
+                                   role="button">Read all jokes</a>
                             </button>
                         </div>
                     </div>
+                    {{ form_end(form) }}
                 </div>
             </div>
         </div>
     </div>
 </div>
-                    {{ form_end(form) }}
+
 
 {% endblock %}

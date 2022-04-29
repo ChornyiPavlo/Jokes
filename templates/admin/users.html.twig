@@ -19,19 +19,23 @@
             <th scope="col">Delete</th>
         </tr>
         </thead>
-        <tbody>{% for key in loadUsers %}
+        <tbody>
+        {% for key in loadUsers %}
         <tr class="table-success text-center">
             <th scope="row">{{key.id}}</th>
             <td class="table-secondary">{{key.name}}</td>
             <td class="table-secondary">{{key.email}}</td>
             <td class="table-secondary">{{key.roles.0}}</td>
             <td class="table-secondary">{{key.password}}</td>
-            <td class="table-secondary"><a class="btn btn-primary" href="{{ path('app_users_edit', {id: key.id}) }}" role="button">Edit</a></td>
+            <td class="table-secondary"><a class="btn btn-primary"
+                                           href="{{ path('app_users_edit', {id: key.id}) }}"
+                                           role="button">Edit</a></td>
             <td class="table-secondary"><a class="btn btn-danger" onclick="return confirm('Do you want delete this?')"
                                            href="{{ path('app_users_delete', {id: key.id}) }}"
                                            role="button">Delete</a></td>
             </tr>
-        </tbody>{% endfor %}
+        {% endfor %}
+        </tbody>
     </table>
     <a class="btn btn-secondary " href="{{ path('app_admin') }}">Back</a>
 
