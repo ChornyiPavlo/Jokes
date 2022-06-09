@@ -245,7 +245,6 @@ class AdminController extends AbstractController
         $joke->setJoke($jokeModeration->getJoke());
         $entityManager->persist($joke);
         $entityManager->remove($jokeModeration);
-        $entityManager->flush();
 
         return $this->redirectToRoute('app_jokes_moderate', [
             'id' => $joke->getId()

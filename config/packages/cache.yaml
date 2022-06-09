@@ -1,5 +1,7 @@
 framework:
     cache:
+        default_memcached_provider: 'memcached://memcached'
+
         # Unique name of your app: used to compute stable namespaces for cache keys.
         #prefix_seed: your_vendor_name/app_name
 
