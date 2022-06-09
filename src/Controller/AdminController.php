@@ -19,6 +19,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Contracts\Cache\CacheInterface;
 
 #[Route ('/admin')]
 class AdminController extends AbstractController
@@ -26,12 +27,18 @@ class AdminController extends AbstractController
     private UserPasswordHasherInterface $passwordHasher;
     private ManagerRegistry $doctrine;
     private PaginatorInterface $paginator;
+    private CacheInterface $cache;
 
-    public function __construct(UserPasswordHasherInterface $passwordHasher, ManagerRegistry $doctrine, PaginatorInterface $paginator)
+    public function __construct(UserPasswordHasherInterface $passwordHasher,
+                                ManagerRegistry             $doctrine,
+                                PaginatorInterface          $paginator,
+                                CacheInterface              $cache
+    )
     {
         $this->passwordHasher = $passwordHasher;
         $this->doctrine = $doctrine;
         $this->paginator = $paginator;
+        $this->cache = $cache;
     }
 
     #[Route('/', name: 'app_admin')]
@@ -49,7 +56,7 @@ class AdminController extends AbstractController
     {
         $loadUsers = $this->doctrine->getRepository(User::class)->findAll();
 
-           return $this->render('admin/users.html.twig', [
+        return $this->render('admin/users.html.twig', [
             'loadUsers' => $loadUsers,
         ]);
     }
@@ -66,9 +73,9 @@ class AdminController extends AbstractController
             $entityManager->flush();
             $this->addFlash('success', 'Done');
 
-            return $this->redirectToRoute('app_users',[
-                'id'=>$user->getId()
-                ]);
+            return $this->redirectToRoute('app_users', [
+                'id' => $user->getId()
+            ]);
         }
         return $this->render('admin/edituser.html.twig', [
             'loadUser' => $form->createView()
@@ -79,12 +86,12 @@ class AdminController extends AbstractController
     #[IsGranted("ROLE_ADMIN", subject: "user")]
     public function delete(User $user, EntityManagerInterface $entityManager)
     {
-            $entityManager->remove($user);
-            $entityManager->flush();
-            $this->addFlash('success', 'Done');
+        $entityManager->remove($user);
+        $entityManager->flush();
+        $this->addFlash('success', 'Done');
 
-            return $this->redirectToRoute('app_users',[
-                'id'=>$user->getId()
+        return $this->redirectToRoute('app_users', [
+            'id' => $user->getId()
         ]);
     }
 
@@ -138,8 +145,8 @@ class AdminController extends AbstractController
             $entityManager->flush();
             $this->addFlash('success', 'Done');
 
-            return $this->redirectToRoute('app_categories',[
-                'id'=>$category->getId()
+            return $this->redirectToRoute('app_categories', [
+                'id' => $category->getId()
             ]);
         }
         return $this->render('admin/editcategory.html.twig', [
@@ -155,8 +162,8 @@ class AdminController extends AbstractController
         $entityManager->flush();
         $this->addFlash('success', 'Done');
 
-        return $this->redirectToRoute('app_categories',[
-            'id'=>$category->getId()
+        return $this->redirectToRoute('app_categories', [
+            'id' => $category->getId()
         ]);
     }
 
@@ -164,8 +171,14 @@ class AdminController extends AbstractController
     #[IsGranted("ROLE_ADMIN")]
     public function managerJokes(): Response
     {
-        $loadJoke = $this->doctrine->getRepository(Joke::class)->findAll();
-        $loadCategory = $this->doctrine->getRepository(Categories::class)->findAll();
+        $cacheloadJoke = $this->doctrine->getRepository(Joke::class)->findAll();
+        $cacheloadCategory = $this->doctrine->getRepository(Categories::class)->findAll();
+        $loadJoke = $this->cache->get('k', function () use ($cacheloadJoke) {
+            return $cacheloadJoke;
+        });
+        $loadCategory = $this->cache->get('c', function () use ($cacheloadCategory) {
+            return $cacheloadCategory;
+        });
 
         return $this->render('admin/jokes.html.twig', [
             'loadJoke' => $loadJoke,
@@ -184,8 +197,8 @@ class AdminController extends AbstractController
             $entityManager->flush();
             $this->addFlash('success', 'Done');
 
-            return $this->redirectToRoute('app_jokes',[
-                'id'=>$joke->getId()
+            return $this->redirectToRoute('app_jokes', [
+                'id' => $joke->getId()
             ]);
         }
         return $this->render('admin/editjoke.html.twig', [
@@ -201,8 +214,8 @@ class AdminController extends AbstractController
         $entityManager->flush();
         $this->addFlash('success', 'Done');
 
-        return $this->redirectToRoute('app_jokes',[
-            'id'=>$joke->getId()
+        return $this->redirectToRoute('app_jokes', [
+            'id' => $joke->getId()
         ]);
     }
 
@@ -221,22 +234,22 @@ class AdminController extends AbstractController
 
     #[Route('/moderate/{id}/approve', name: 'app_jokes_approve')]
     #[IsGranted("ROLE_ADMIN")]
-    public function approveJoke( EntityManagerInterface $entityManager, JokeModeration $jokeModeration)
+    public function approveJoke(EntityManagerInterface $entityManager, JokeModeration $jokeModeration)
     {
-        $cat = $this->doctrine->getRepository(Categories::class)->findBy(['id'=>$jokeModeration->getCategory()]);
-        foreach ($cat as $key=>$item){
+        $cat = $this->doctrine->getRepository(Categories::class)->findBy(['id' => $jokeModeration->getCategory()]);
+        foreach ($cat as $key => $item) {
             $item;
         }
-          $joke = new Joke();
-          $joke->setCategory($item);
-          $joke->setJoke($jokeModeration->getJoke());
-          $entityManager->persist($joke);
-          $entityManager->remove($jokeModeration);
-          $entityManager->flush();
+        $joke = new Joke();
+        $joke->setCategory($item);
+        $joke->setJoke($jokeModeration->getJoke());
+        $entityManager->persist($joke);
+        $entityManager->remove($jokeModeration);
+        $entityManager->flush();
 
-            return $this->redirectToRoute('app_jokes_moderate',[
-                'id'=>$joke->getId()
-            ]);
+        return $this->redirectToRoute('app_jokes_moderate', [
+            'id' => $joke->getId()
+        ]);
     }
 
     #[Route('/moderate/{id}/decline', name: 'app_jokes_decline')]
@@ -247,8 +260,8 @@ class AdminController extends AbstractController
         $entityManager->flush();
         $this->addFlash('success', 'Done');
 
-        return $this->redirectToRoute('app_jokes_moderate',[
-            'id'=>$joke->getId()
+        return $this->redirectToRoute('app_jokes_moderate', [
+            'id' => $joke->getId()
         ]);
     }
 
