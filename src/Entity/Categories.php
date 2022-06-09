@@ -20,19 +20,22 @@ class Categories
     {
         return $this->id;
     }
+
     public function setId($id): self
     {
-        $this->id=$id->getId();
-        $this->name=$id->getName();
+        $this->id = $id->getId();
+        $this->name = $id->getName();
         return $this;
     }
+
     public function getName()
     {
         return $this->name;
     }
+
     public function setName($name): self
     {
-        $this->name=$name;
+        $this->name = $name;
         return $this;
     }
 

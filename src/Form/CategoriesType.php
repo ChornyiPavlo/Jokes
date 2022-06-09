@@ -16,10 +16,10 @@ class CategoriesType extends AbstractType
             ->add('id', EntityType::class,
                 [
                     'class' => Categories::class,
-                    'choice_label' => function(Categories $category) {
+                    'choice_label' => function (Categories $category) {
                         return $category->getName();
                     },
-                    'label'=>'Choosing a category of jokes',
+                    'label' => 'Choosing a category of jokes',
                     'placeholder' => 'Choose category',
                 ]);
     }

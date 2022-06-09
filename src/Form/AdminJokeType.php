@@ -13,12 +13,6 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class AdminJokeType extends AbstractType
 {
-    private ManagerRegistry $doctrine;
-
-    public function __construct(ManagerRegistry $doctrine)
-    {
-        $this->doctrine = $doctrine;
-    }
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder

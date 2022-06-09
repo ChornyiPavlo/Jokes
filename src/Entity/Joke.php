@@ -24,22 +24,26 @@ class Joke
     {
         return $this->id;
     }
+
     public function getCategory(): ?int
     {
         return $this->category_id;
     }
+
     public function setCategory($category_id): self
     {
-        $this->category_id=$category_id->getId();
+        $this->category_id = $category_id->getId();
         return $this;
     }
+
     public function getJoke(): ?string
     {
         return $this->joke;
     }
+
     public function setJoke(string $joke): self
     {
-        $this->joke=$joke;
+        $this->joke = $joke;
         return $this;
     }
 

@@ -30,40 +30,48 @@ class JokeModeration
     {
         return $this->id;
     }
+
     public function getCategory(): ?int
     {
         return $this->category_id;
     }
+
     public function setCategory($category_id): self
     {
-        $this->category_id=$category_id->getId();
+        $this->category_id = $category_id->getId();
         return $this;
     }
+
     public function getJoke(): ?string
     {
         return $this->joke;
     }
+
     public function setJoke(string $joke): self
     {
-        $this->joke=$joke;
+        $this->joke = $joke;
         return $this;
     }
+
     public function getUser(): ?string
     {
         return $this->user;
     }
+
     public function setUser(string $user): self
     {
-        $this->user=$user;
+        $this->user = $user;
         return $this;
     }
+
     public function getCreated(): \DateTime
     {
         return $this->created;
     }
+
     public function setCreated($created): self
     {
-        $this->created=$created;
+        $this->created = $created;
         return $this;
     }
 

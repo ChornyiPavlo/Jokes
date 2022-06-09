@@ -21,15 +21,16 @@ class RegistrationController extends AbstractController
     private FormLoginAuthenticator $formLoginAuthenticator;
 
     public function __construct(UserPasswordHasherInterface $passwordHasher,
-                                ManagerRegistry $doctrine,
-                                UserAuthenticatorInterface $userAuthenticator,
-                                FormLoginAuthenticator $formLoginAuthenticator)
+                                ManagerRegistry             $doctrine,
+                                UserAuthenticatorInterface  $userAuthenticator,
+                                FormLoginAuthenticator      $formLoginAuthenticator)
     {
         $this->passwordHasher = $passwordHasher;
         $this->doctrine = $doctrine;
         $this->userAuthenticator = $userAuthenticator;
         $this->formLoginAuthenticator = $formLoginAuthenticator;
     }
+
     #[Route('/register', name: 'app_register')]
     public function register(Request $request): Response
     {

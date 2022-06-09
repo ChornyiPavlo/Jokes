@@ -20,7 +20,7 @@ class JokeController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $joke ->setUser($this->getUser()->getEmail());
+            $joke->setUser($this->getUser()->getEmail());
             $joke->setCreated(date_create('now'));
 
             $entityManager = $doctrine->getManager();
