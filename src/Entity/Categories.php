@@ -23,8 +23,7 @@ class Categories
 
     public function setId($id): self
     {
-        $this->id = $id->getId();
-        $this->name = $id->getName();
+        $this->id = $id;
         return $this;
     }
 

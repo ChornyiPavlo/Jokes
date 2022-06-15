@@ -8,7 +8,7 @@ services:
       - "80:80"
     volumes:
       - ./docker/nginx/:/etc/nginx/conf.d/
-      - ./:/var/www/app
+      - ./static:/app/static
     links:
       - php-fpm
     depends_on:
@@ -18,12 +18,14 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
+    environment:
+      PHP_IDE_CONFIG: serverName=docker # for cli???
+      XDEBUG_CONFIG: client_host=host.docker.internal
+      XDEBUG_MODE: debug
     ports:
       - "9000:9000"
     volumes:
       - ./:/var/www/app
-      - /var/www/docker-study.loc/recipe-09/php:/var/www/app
-      - /var/www/docker-study.loc/recipe-09/docker/php.ini:/usr/local/etc/php/php.ini
     links:
       - mysql
       - memcached
@@ -45,8 +47,7 @@ services:
       - "11211:11211"
 
   rabbitmq:
-    image: rabbitmq:latest
-
-
-
-
+    image: rabbitmq:management-alpine
+    ports:
+      - "5672:5672"
+      - "15672:15672"

@@ -1,17 +1,17 @@
 <?php
 
-namespace App\Controller;
+namespace App\Controller\User;
 
 use App\Form\UserType;
+use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Routing\Annotation\Route;
-use Doctrine\Persistence\ManagerRegistry;
 
 
-class EditUserController extends AbstractController
+class UserUpdateController extends AbstractController
 {
     private UserPasswordHasherInterface $passwordHasher;
     private ManagerRegistry $doctrine;
@@ -22,7 +22,7 @@ class EditUserController extends AbstractController
         $this->doctrine = $doctrine;
     }
 
-    #[Route('/edit', name: 'app_user_edit')]
+    #[Route('/update', name: 'app_user_update')]
     public function edit(Request $request): Response
     {
         $user = $this->getUser();
@@ -36,7 +36,7 @@ class EditUserController extends AbstractController
 
             return $this->redirectToRoute('app_page');
         }
-        return $this->render('user/edit.html.twig', [
+        return $this->render('user/update.html.twig', [
             'form' => $form->createView()]);
     }
 }

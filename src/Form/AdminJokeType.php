@@ -16,7 +16,7 @@ class AdminJokeType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('category', EntityType::class,
+            ->add('categoryId', EntityType::class,
                 [
                     'class' => Categories::class,
                     'choice_label' => function (Categories $category) {

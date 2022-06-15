@@ -3,6 +3,8 @@
 {% block title %}Edit User{% endblock %}
 
 {% block body %}
+    <script src="/script.js"></script>
+
     <style>
     .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
     table{ width:100% }
@@ -11,7 +13,7 @@
     <table class="table-light">
         <tbody>
         <tr class="table-info text-center">
-            <br> {{ form_row(loadJoke.category, {'attr': {'class': 'form-control'}}) }}
+            <br> {{ form_row(loadJoke.categoryId, {'attr': {'class': 'form-control'}}) }}
             <br> {{ form_row(loadJoke.joke, {'attr': {'class': 'form-control'}}) }}
         </tr>
         </tbody>

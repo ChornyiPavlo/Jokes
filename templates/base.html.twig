@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="">
 <head>
-    <meta charset="UTF-8" />
+    <meta charset="UTF-8"/>
     <title>{% block title %}Welcome!{% endblock %}</title>
     <link
             rel="stylesheet"
@@ -16,14 +16,14 @@
     <div class="collapse navbar-collapse" id="navbarSupportedContent"></div>
     <ul class="nav navbar-nav navbar-right">
         {% if is_granted('ROLE_ADMIN') %}
-        <li><a class="nav-link" href="{{ path('app_admin') }}">Admin panel</a></li>
+            <li><a class="nav-link" href="{{ path('app_admin') }}">Admin panel</a></li>
         {% endif %}
-        {% if  app.user  %}
-            <li><a class="nav-link" href="{{ path('app_user_edit') }}">Edit profile</a></li>
+        {% if  app.user %}
+            <li><a class="nav-link" href="{{ path('app_user_update') }}">Edit profile</a></li>
             <li><a class="nav-link" href="{{ path('app_logout') }}">Logout</a></li>
         {% else %}
             <li><a class="nav-link" href="{{ path('app_login') }}">Login</a></li>
-            <li><a class="nav-link" href="{{ path('app_register') }}">Register</a></li>
+            <li><a class="nav-link" href="{{ path('app_registration') }}">Registration</a></li>
         {% endif %}
     </ul>
 </nav>

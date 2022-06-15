@@ -7,7 +7,7 @@
     {% if error %}
         <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
     {% endif %}
-    <form action="{{ path('login') }}" method="post">
+<form action="{{ path('login') }}" method="post">
     <div class="container">
         <div class="row">
             <div class="col-md-10 ml-md-auto">
@@ -16,11 +16,15 @@
                         <div class="card-header mb-3">Please sign in</div>
                         <div class="form_group">
                             <div class="col-md-12 mb-3">Email</div>
-    <label for="email"></label><input type="email" value="" name="_username" id="email" class="form-control" autocomplete="email" required autofocus>
+                            <label for="email"></label><input type="email" value="" name="_username" id="email"
+                                                              class="form-control" autocomplete="email" required
+                                                              autofocus>
                             <div class="form_group">
                                 <div class="col-md-12 mb-3 mt-3">Password</div>
-    <label for="password"></label><input type="password" name="_password" id="password" class="form-control" autocomplete="current-password" required>
-                        <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
+                                <label for="password"></label><input type="password" name="_password" id="password"
+                                                                     class="form-control"
+                                                                     autocomplete="current-password" required>
+                                <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
                                 <div class="form-group">
                                     <div class="col-md-8 col-md-offset-4" style="margin-top:20px;">
                                         <button type="submit" class="btn btn-primary">

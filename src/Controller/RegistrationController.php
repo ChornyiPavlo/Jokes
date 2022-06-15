@@ -4,12 +4,12 @@ namespace App\Controller;
 
 use App\Entity\User;
 use App\Form\UserType;
+use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Routing\Annotation\Route;
-use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Component\Security\Http\Authentication\UserAuthenticatorInterface;
 use Symfony\Component\Security\Http\Authenticator\FormLoginAuthenticator;
 
@@ -31,7 +31,7 @@ class RegistrationController extends AbstractController
         $this->formLoginAuthenticator = $formLoginAuthenticator;
     }
 
-    #[Route('/register', name: 'app_register')]
+    #[Route('/registration', name: 'app_registration')]
     public function register(Request $request): Response
     {
         $user = new User();
@@ -50,7 +50,7 @@ class RegistrationController extends AbstractController
 
             return $this->redirectToRoute('app_page');
         }
-        return $this->render('registration/register.html.twig', [
+        return $this->render('user/security/registration.html.twig', [
             'registrationForm' => $form->createView(),
         ]);
     }

@@ -3,7 +3,6 @@
 namespace App\Form;
 
 use App\Entity\Categories;
-use App\Entity\Joke;
 use App\Entity\JokeModeration;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
@@ -17,23 +16,25 @@ class ModerJokeType extends AbstractType
 {
     private ManagerRegistry $doctrine;
 
-    public function __construct(ManagerRegistry $doctrine)
+    public function __construct(
+        ManagerRegistry $doctrine,
+    )
     {
         $this->doctrine = $doctrine;
     }
 
     public function buildForm(FormBuilderInterface $builder, array $options,): void
     {
-        $category = $this->doctrine->getRepository(Categories::class)->findAll();
+        $categories = $this->doctrine->getRepository(Categories::class)->findAll();
         $builder
-            ->add('category', EntityType::class,
+            ->add('categoryId', EntityType::class,
                 [
                     'class' => Categories::class,
                     'choice_label' => function (Categories $category) {
                         return $category->getName();
                     },
                     'placeholder' => 'Choose category',
-                    'choices' => $category
+                    'choices' => $categories,
                 ])
             ->add('joke', TextareaType::class);
     }

@@ -59,7 +59,7 @@ class CategoriesRepository extends ServiceEntityRepository
 
 
     // /**
-    //  * @return Categories[] Returns an array of Categories objects
+    //  * @return Category[] Returns an array of Category objects
     //  */
     /*
     public function findByExampleField($value)
@@ -76,7 +76,7 @@ class CategoriesRepository extends ServiceEntityRepository
     */
 
     /*
-    public function findOneBySomeField($value): ?Categories
+    public function findOneBySomeField($value): ?Category
     {
         return $this->createQueryBuilder('c')
             ->andWhere('c.exampleField = :val')

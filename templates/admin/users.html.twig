@@ -28,10 +28,10 @@
             <td class="table-secondary">{{key.roles.0}}</td>
             <td class="table-secondary">{{key.password}}</td>
             <td class="table-secondary"><a class="btn btn-primary"
-                                           href="{{ path('app_users_edit', {id: key.id}) }}"
+                                           href="{{ path('app_admin_user_update', {id: key.id}) }}"
                                            role="button">Edit</a></td>
             <td class="table-secondary"><a class="btn btn-danger" onclick="return confirm('Do you want delete this?')"
-                                           href="{{ path('app_users_delete', {id: key.id}) }}"
+                                           href="{{ path('app_user_delete', {id: key.id}) }}"
                                            role="button">Delete</a></td>
             </tr>
         {% endfor %}

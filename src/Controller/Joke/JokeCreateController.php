@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Controller;
+namespace App\Controller\Joke;
 
 use App\Entity\JokeModeration;
 use App\Form\ModerJokeType;
@@ -10,10 +10,19 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
-class JokeController extends AbstractController
+class JokeCreateController extends AbstractController
 {
-    #[Route('/add joke', name: 'app_joke')]
-    public function submit(Request $request, ManagerRegistry $doctrine): Response
+    private ManagerRegistry $doctrine;
+
+    public function __construct(
+        ManagerRegistry $doctrine,
+    )
+    {
+        $this->doctrine = $doctrine;
+    }
+
+    #[Route('/create joke', name: 'app_joke_create')]
+    public function submit(Request $request): Response
     {
         $joke = new JokeModeration();
         $form = $this->createForm(ModerJokeType::class, $joke);
@@ -23,13 +32,13 @@ class JokeController extends AbstractController
             $joke->setUser($this->getUser()->getEmail());
             $joke->setCreated(date_create('now'));
 
-            $entityManager = $doctrine->getManager();
+            $entityManager = $this->doctrine->getManager();
             $entityManager->persist($joke);
             $entityManager->flush();
 
             return $this->redirectToRoute('app_page');
         }
-        return $this->render('joke/index.html.twig', [
+        return $this->render('joke/createjoke.html.twig', [
             'form' => $form->createView(),
         ]);
     }

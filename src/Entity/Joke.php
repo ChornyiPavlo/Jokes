@@ -15,7 +15,7 @@ class Joke
     private $id;
 
     #[ORM\Column(type: 'integer')]
-    private $category_id;
+    private $categoryId;
 
     #[ORM\Column(type: 'string', length: 65535)]
     private $joke;
@@ -25,14 +25,14 @@ class Joke
         return $this->id;
     }
 
-    public function getCategory(): ?int
+    public function getCategoryId(): ?int
     {
-        return $this->category_id;
+        return $this->categoryId;
     }
 
-    public function setCategory($category_id): self
+    public function setCategoryId(int $categoryId): self
     {
-        $this->category_id = $category_id->getId();
+        $this->categoryId = $categoryId;
         return $this;
     }
 

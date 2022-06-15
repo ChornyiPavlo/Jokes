@@ -1,9 +1,10 @@
 <?php
 
-namespace App\Controller;
+namespace App\Controller\Joke;
 
 use App\Entity\Categories;
 use App\Entity\Joke;
+use App\Entity\JokeModeration;
 use App\Form\CategoriesType;
 use App\Repository\JokeRepository;
 use Doctrine\Persistence\ManagerRegistry;
@@ -11,11 +12,11 @@ use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Contracts\Cache\CacheInterface;
-use Symfony\Contracts\Cache\ItemInterface;
 
-class ReadController extends AbstractController
+class JokeReadController extends AbstractController
 {
     private ManagerRegistry $doctrine;
     private PaginatorInterface $paginator;
@@ -41,11 +42,11 @@ class ReadController extends AbstractController
         $queryBuilder = $repository->getWithSearchQueryBuilder($q);
         $pagination = $this->paginator->paginate(
             $queryBuilder, /* query NOT result */
-            $request->query->getInt('page', 1)/*page number*/,
-            5/*limit per page*/
+            $request->query->getInt('StartPage', 1)/*StartPage number*/,
+            5/*limit per StartPage*/
         );
 
-        return $this->render('read/alljokes.html.twig', [
+        return $this->render('joke/read/alljokes.html.twig', [
             'alljokes' => $alljokes,
             'allcategory' => $allcategory,
             'pagination' => $pagination,
@@ -59,13 +60,13 @@ class ReadController extends AbstractController
         $form = $this->createForm(CategoriesType::class, $category);
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
-            $jokes = $this->doctrine->getRepository(Joke::class)->findby(['category_id' => $category->getId()]);
-            return $this->render('read/jokes.html.twig', [
+            $jokes = $this->doctrine->getRepository(Joke::class)->findby(['categoryId' => $category->getId()]);
+            return $this->render('joke/read/jokes.html.twig', [
                 'jokes' => $jokes,
                 'category_id' => $category->getId()
             ]);
         }
-        return $this->render('read/index.html.twig', [
+        return $this->render('joke/read/index.html.twig', [
             'form' => $form->createView(),
         ]);
     }
