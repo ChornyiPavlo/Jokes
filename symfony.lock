@@ -90,7 +90,7 @@
         "version": "v4.13.2"
     },
     "paragonie/constant_time_encoding": {
-        "version": "v2.6.2"
+        "version": "v2.6.3"
     },
     "paragonie/random_compat": {
         "version": "v9.99.100"
@@ -137,6 +137,9 @@
         "files": [
             "config/packages/sensio_framework_extra.yaml"
         ]
+    },
+    "symfony/amqp-messenger": {
+        "version": "v6.0.7"
     },
     "symfony/cache": {
         "version": "v6.0.6"
@@ -234,6 +237,18 @@
             "version": "1.0",
             "ref": "fadbfe33303a76e25cb63401050439aa9b1a9c7f"
         }
+    },
+    "symfony/messenger": {
+        "version": "6.0",
+        "recipe": {
+            "repo": "github.com/symfony/recipes",
+            "branch": "main",
+            "version": "6.0",
+            "ref": "2523f7d31488903e247a522e760dc279be7f7aaf"
+        },
+        "files": [
+            "config/packages/messenger.yaml"
+        ]
     },
     "symfony/options-resolver": {
         "version": "v6.0.3"
