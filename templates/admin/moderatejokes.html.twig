@@ -26,7 +26,7 @@
             <th scope="row">{{key.id}}</th>
             <td class="table-secondary">
                 {% for name in loadCategory%}
-                    {% if key.categoryId == name.id %}
+                    {% if key.category.id == name.id %}
                         {{name.name}} {%endif%}
                 {% endfor %}</td>
             <td class="table-secondary">{{key.joke}}</td>

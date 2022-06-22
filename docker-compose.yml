@@ -19,7 +19,7 @@ services:
       context: .
       dockerfile: Dockerfile
     environment:
-      PHP_IDE_CONFIG: serverName=docker # for cli???
+      PHP_IDE_CONFIG: serverName=docker
       XDEBUG_CONFIG: client_host=host.docker.internal
       XDEBUG_MODE: debug
     ports:
@@ -30,6 +30,37 @@ services:
       - mysql
       - memcached
       - rabbitmq
+
+  rabbitmq:
+    image: rabbitmq:management-alpine
+    ports:
+      - "5672:5672"
+      - "15672:15672"
+
+  consumer:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    environment:
+      PHP_IDE_CONFIG: serverName=docker
+      XDEBUG_CONFIG: client_host=host.docker.internal
+      XDEBUG_MODE: debug
+    command:
+      - php
+      - /var/www/app/bin/console
+      - messenger:consume
+      - async
+    volumes:
+      - ./:/var/www/app
+    links:
+      - mysql
+      - memcached
+      - rabbitmq
+    depends_on:
+      - rabbitmq
+      - memcached
+      - mysql
+    restart: on-failure
 
   mysql:
     image: mysql:latest
@@ -45,9 +76,3 @@ services:
     image: memcached:latest
     ports:
       - "11211:11211"
-
-  rabbitmq:
-    image: rabbitmq:management-alpine
-    ports:
-      - "5672:5672"
-      - "15672:15672"

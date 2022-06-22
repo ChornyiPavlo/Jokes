@@ -30,7 +30,7 @@
                 <th scope="row">{{ joke.id }}</th>
                 <td class="table-secondary">
                     {% for cat in loadCategory %}
-                        {% if joke.categoryId == cat.id %}
+                        {% if joke.category.id == cat.id %}
                             {{ cat.name }}
                         {% endif %}
                     {% endfor %}</td>

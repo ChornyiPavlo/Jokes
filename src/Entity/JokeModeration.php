@@ -12,33 +12,34 @@ class JokeModeration
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column(type: 'integer')]
-    private $id;
+    private int $id;
 
-    #[ORM\Column(type: 'integer')]
-    private $categoryId;
+    #[ORM\ManyToOne(targetEntity: Categories::class)]
+    #[ORM\JoinColumn(name: 'categoryId', referencedColumnName: 'id', nullable: false)]
+    private Categories $category;
 
     #[ORM\Column(type: 'string', length: 65535)]
-    private $joke;
+    private string $joke;
 
     #[ORM\Column(type: 'string', length: 45)]
-    private $user;
+    private string $user;
 
     #[ORM\Column(type: 'datetime')]
-    private $created;
+    private \DateTime $created;
 
     public function getId(): ?int
     {
         return $this->id;
     }
 
-    public function getCategoryId(): ?int
+    public function getCategory(): Categories
     {
-        return $this->categoryId;
+        return $this->category;
     }
 
-    public function setCategoryId(int $categoryId): self
+    public function setCategory(Categories $category): self
     {
-        $this->categoryId = $categoryId;
+        $this->category = $category;
         return $this;
     }
 
@@ -69,7 +70,7 @@ class JokeModeration
         return $this->created;
     }
 
-    public function setCreated($created): self
+    public function setCreated(\DateTime $created): self
     {
         $this->created = $created;
         return $this;

@@ -27,7 +27,7 @@ class ModerJokeType extends AbstractType
     {
         $categories = $this->doctrine->getRepository(Categories::class)->findAll();
         $builder
-            ->add('categoryId', EntityType::class,
+            ->add('category', EntityType::class,
                 [
                     'class' => Categories::class,
                     'choice_label' => function (Categories $category) {

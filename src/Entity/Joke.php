@@ -14,8 +14,9 @@ class Joke
     #[ORM\Column(type: 'integer')]
     private $id;
 
-    #[ORM\Column(type: 'integer')]
-    private $categoryId;
+    #[ORM\ManyToOne(targetEntity: Categories::class)]
+    #[ORM\JoinColumn(name: 'categoryId', referencedColumnName: 'id', nullable: false)]
+    private Categories $category;
 
     #[ORM\Column(type: 'string', length: 65535)]
     private $joke;
@@ -25,14 +26,14 @@ class Joke
         return $this->id;
     }
 
-    public function getCategoryId(): ?int
+    public function getCategory(): Categories
     {
-        return $this->categoryId;
+        return $this->category;
     }
 
-    public function setCategoryId(int $categoryId): self
+    public function setCategory(Categories $category): self
     {
-        $this->categoryId = $categoryId;
+        $this->category = $category;
         return $this;
     }
 
