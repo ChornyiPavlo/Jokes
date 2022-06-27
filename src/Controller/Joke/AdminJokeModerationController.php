@@ -21,7 +21,7 @@ class AdminJokeModerationController extends AbstractController
     private EntityManagerInterface $entityManager;
 
     public function __construct(
-        ManagerRegistry $doctrine,
+        ManagerRegistry        $doctrine,
         EntityManagerInterface $entityManager,
     )
     {

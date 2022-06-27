@@ -54,8 +54,7 @@ class ModerRepository extends ServiceEntityRepository
     {
         $qb = $this->createQueryBuilder('c');
         return $qb
-            ->orderBy('c.joke', 'DESC')
-            ;
+            ->orderBy('c.joke', 'DESC');
     }
 
     // /**

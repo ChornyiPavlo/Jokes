@@ -3,27 +3,34 @@
 {% block title %}Read joke{% endblock %}
 
 {% block body %}
-<style>
-    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
+    <style>
+        .example-wrapper code {
+            background: #F5F5F5;
+            padding: 2px 6px;
+        }
 
-</style>
-<div class="container">
-    <div class="row">
-        <div class="col-md-10 ml-md-auto">
-            <div class="card bg-light mb-3 mt-5" style="width: 800px">
-                <div class="card-body">
-                    <div class="card-header mb-3">All Jokes is {{ pagination.getTotalItemCount }} </div>
+    </style>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-10 ml-md-auto">
+                <div class="card bg-light mb-3 mt-5" style="width: 800px">
+                    <div class="card-body">
+                        <div class="card-header mb-3">All Jokes is {{ pagination.getTotalItemCount }}
+                        </div>
                         <div class="form_group">
                             <div class="col-md-12 mb-3"></div>
+                            {% for jokes in alljokes %}
+                            {% endfor %}
+                            </ul>
                             {% for joke in pagination %}
-                                                <br> {{joke.joke}}
-                                    {% endfor %}
+                                <br> {{ joke.joke }}
+                            {% endfor %}
                         </div>
-                    {{ knp_pagination_render(pagination) }}
+                        {{ knp_pagination_render(pagination) }}
+                    </div>
                 </div>
             </div>
         </div>
     </div>
-</div>
 
 {% endblock %}

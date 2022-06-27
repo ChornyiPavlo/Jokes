@@ -20,20 +20,21 @@ class JokeType extends AbstractType
     {
         $this->doctrine = $doctrine;
     }
-    public function buildForm(FormBuilderInterface $builder, array $options, ): void
+
+    public function buildForm(FormBuilderInterface $builder, array $options,): void
     {
         $category = $this->doctrine->getRepository(Categories::class)->findAll();
         $builder
-        ->add('category', EntityType::class,
-            [
-                'class' => Categories::class,
-                'choice_label' => function(Categories $category) {
-                return $category->getName();
-            },
-                'placeholder' => 'Choose category',
-                'choices' => $category
-            ])
-        ->add('joke', TextareaType::class);
+            ->add('category', EntityType::class,
+                [
+                    'class' => Categories::class,
+                    'choice_label' => function (Categories $category) {
+                        return $category->getName();
+                    },
+                    'placeholder' => 'Choose category',
+                    'choices' => $category
+                ])
+            ->add('joke', TextareaType::class);
     }
 
     public function configureOptions(OptionsResolver $resolver): void

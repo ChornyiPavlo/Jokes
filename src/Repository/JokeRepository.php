@@ -48,14 +48,15 @@ class JokeRepository extends ServiceEntityRepository
 
     /**
      * @param string|null $term
+     * @return QueryBuilder
      */
     public function getWithSearchQueryBuilder(?string $term): QueryBuilder
     {
         $qb = $this->createQueryBuilder('c');
         return $qb
-            ->orderBy('c.joke', 'DESC')
-            ;
+            ->orderBy('c.joke', 'DESC');
     }
+
 
     // /**
     //  * @return Joke[] Returns an array of Joke objects

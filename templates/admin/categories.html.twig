@@ -3,10 +3,16 @@
 {% block title %}Hello Admin!{% endblock %}
 
 {% block body %}
-<style>
-    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
-    table{ width:100% }
-</style>
+    <style>
+        .example-wrapper code {
+            background: #F5F5F5;
+            padding: 2px 6px;
+        }
+
+        table {
+            width: 100%
+        }
+    </style>
     <a class="btn btn-outline-success" href="{{ path('app_categories_create') }}" role="button">Add category</a>
     <a class="btn btn-secondary " href="{{ path('app_admin') }}">Back</a>
     <table class="table-light">
@@ -20,13 +26,15 @@
         </thead>
         <tbody>{% for key in loadCategory %}
         <tr class="table-success text-center">
-            <th scope="row">{{key.id}}</th>
-            <td class="table-secondary">{{key.name}}</td>
-            <td class="table-secondary"><a class="btn btn-primary" href="{{ path('app_categories_update', {id: key.id}) }}" role="button">Edit</a></td>
+            <th scope="row">{{ key.id }}</th>
+            <td class="table-secondary">{{ key.name }}</td>
+            <td class="table-secondary"><a class="btn btn-primary"
+                                           href="{{ path('app_categories_update', {id: key.id}) }}"
+                                           role="button">Edit</a></td>
             <td class="table-secondary"><a class="btn btn-danger" onclick="return confirm('Do you want delete this?')"
                                            href="{{ path('app_category_delete', {id: key.id}) }}"
                                            role="button">Delete</a></td>
-            </tr>
+        </tr>
         </tbody>{% endfor %}
     </table>
 

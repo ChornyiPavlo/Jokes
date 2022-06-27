@@ -4,7 +4,6 @@ namespace App\Form;
 
 use App\Entity\Categories;
 use App\Entity\Joke;
-use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;

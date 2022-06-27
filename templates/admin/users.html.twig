@@ -3,10 +3,16 @@
 {% block title %}Hello Admin!{% endblock %}
 
 {% block body %}
-<style>
-    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
-    table{ width:100% }
-</style>
+    <style>
+        .example-wrapper code {
+            background: #F5F5F5;
+            padding: 2px 6px;
+        }
+
+        table {
+            width: 100%
+        }
+    </style>
     <table class="table-light">
         <thead>
         <tr class="table-primary text-center">
@@ -21,18 +27,19 @@
         </thead>
         <tbody>
         {% for key in loadUsers %}
-        <tr class="table-success text-center">
-            <th scope="row">{{key.id}}</th>
-            <td class="table-secondary">{{key.name}}</td>
-            <td class="table-secondary">{{key.email}}</td>
-            <td class="table-secondary">{{key.roles.0}}</td>
-            <td class="table-secondary">{{key.password}}</td>
-            <td class="table-secondary"><a class="btn btn-primary"
-                                           href="{{ path('app_admin_user_update', {id: key.id}) }}"
-                                           role="button">Edit</a></td>
-            <td class="table-secondary"><a class="btn btn-danger" onclick="return confirm('Do you want delete this?')"
-                                           href="{{ path('app_user_delete', {id: key.id}) }}"
-                                           role="button">Delete</a></td>
+            <tr class="table-success text-center">
+                <th scope="row">{{ key.id }}</th>
+                <td class="table-secondary">{{ key.name }}</td>
+                <td class="table-secondary">{{ key.email }}</td>
+                <td class="table-secondary">{{ key.roles.0 }}</td>
+                <td class="table-secondary">{{ key.password }}</td>
+                <td class="table-secondary"><a class="btn btn-primary"
+                                               href="{{ path('app_admin_user_update', {id: key.id}) }}"
+                                               role="button">Edit</a></td>
+                <td class="table-secondary"><a class="btn btn-danger"
+                                               onclick="return confirm('Do you want delete this?')"
+                                               href="{{ path('app_user_delete', {id: key.id}) }}"
+                                               role="button">Delete</a></td>
             </tr>
         {% endfor %}
         </tbody>

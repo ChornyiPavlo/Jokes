@@ -6,7 +6,6 @@ use App\CacheKeyDict;
 use App\Entity\Categories;
 use App\Entity\Joke;
 use App\Form\AdminJokeType;
-use App\Repository\JokeRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\Persistence\ManagerRegistry;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;

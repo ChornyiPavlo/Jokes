@@ -45,7 +45,6 @@ class AdminCategoryController extends AbstractController
             $entityManager->persist($category);
             $entityManager->flush();
 
-            // send message to queue
             $this->bus->dispatch(new SampleMessage($category->getName() . ' created'));
 
             return $this->redirectToRoute('app_categories');

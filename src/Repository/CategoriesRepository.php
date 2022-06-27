@@ -29,8 +29,7 @@ class CategoriesRepository extends ServiceEntityRepository
     {
         $qb = $this->createQueryBuilder('c');
         return $qb
-            ->orderBy('c.name', 'DESC')
-            ;
+            ->orderBy('c.name', 'DESC');
     }
 
     /**
